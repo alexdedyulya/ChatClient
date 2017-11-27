@@ -140,11 +140,14 @@ public class ClientGUI implements ServerMessageListenerSubscriber {
             if (!getTextFieldInput().equals("exit")) {
                 try {
                     connection.sendMessage(new MessageRequest(getTextFieldLogin(), getTextFieldInput()));
+                    fieldInput.setText("");
+                    fieldInput.requestFocus();
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
             } else {
                 try {
+                    connection.sendMessage(new MessageRequest(getTextFieldLogin(), false));
                     connection.close();
                 } catch (IOException e1) {
                     e1.printStackTrace();
@@ -153,13 +156,11 @@ public class ClientGUI implements ServerMessageListenerSubscriber {
             }
         });
         frame.add(sendButton);
-        //sendButton.addActionListener(new SendButtonListener());
 
         c.gridx = 1;
         c.gridy = 0;
         c.ipadx = 30;
         c.insets = new Insets(5, 0, 5, 5);
-        //c.ipady = 20;
 
         JScrollPane listScroll = new JScrollPane(listOfClient);
         listOfClient.setEditable(false);
